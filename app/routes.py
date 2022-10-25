@@ -1,5 +1,6 @@
 from app import app
 from flask import render_template, redirect, url_for, current_app
+from app.forms import AddForm
 from app import db
 from app.models import Car
 import sqlalchemy as sa
@@ -44,3 +45,28 @@ def wipe():
 def view():
     all = db.session.query(Car).all()
     return render_template('view_cars.html', cars=all)
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def addCar():
+    form = AddForm()
+    if form.validate_on_submit():
+        modelYear = form.year.data
+        model = form.model.data
+        origin = form.origin.data
+        mpg = forms.fuel_eff.data
+            
+        c = Car(car=modelYear, model=model, origin=origin, mpg=mpg)
+            
+        db.session.add(c)
+        db.session.commit()
+            
+        form.modelYear.data=''
+        form.model.data=''
+        form.origin.data=''
+        form.mpg.data=''
+            
+        return redirect(url_for('addCar'))
+    return render_template('add.html', form=form)
+            
+    
