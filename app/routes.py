@@ -51,17 +51,17 @@ def view():
 def addCar():
     form = AddForm()
     if form.validate_on_submit():
-        modelYear = form.year.data
-        model = form.model.data
+        carModel= form.carModel.data
+        modelYear = form.modelYear.data
         origin = form.origin.data
-        mpg = forms.fuel_eff.data
+        mpg = form.mpg.data
             
-        c = Car(car=modelYear, model=model, origin=origin, mpg=mpg)
+        c = Car(modelYear=modelYear, carModel=carModel, origin=origin, mpg=mpg)
             
         db.session.add(c)
         db.session.commit()
             
-        form.modelYear.data=''
+        form.year.data=''
         form.model.data=''
         form.origin.data=''
         form.mpg.data=''

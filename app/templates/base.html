@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            th{
+                text-align: left;
+            }
+        </style>
+        <title>Car Database</title>
+    </head>
+
+    <body>
+        <h1 style="color:red">Car List</h1>
+        <hr>
+        <div>     
+            <a href="/search">Search Car</a>
+            <a href="/add">Add Car</a>
+            <a href="/delete">Delete Car</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+   </body>
+</html>
