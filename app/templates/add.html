@@ -1,14 +1,14 @@
-{% extends "view_cars.html"%}
+{% extends "base.html"%}
 
 {% block content %}
     <h2>Add a Car</h2>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
-            {{form.carModel.label}}<br>{{form.carModel(size=32)}}
-            {{form.modelYear.label}}<br>{{form.modelYear(size=32)}}
-            {{form.origin.label}}<br>{{form.origin(size=32)}}
-            {{form.mpg.label}}<br>{{form.mpg(size=32)}}
+            <div>{{form.name.label}}{{form.name(size=30)}}</div>
+            <div>{{form.year.label}}{{form.year(size=30)}}</div>
+            <div>{{form.origin.label}}{{form.origin(size=30)}}</div>
+            <div>{{form.mpg.label}}{{form.mpg(size=30)}}</div>
 
         </p>
 

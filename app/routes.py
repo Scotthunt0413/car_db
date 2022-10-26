@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, redirect, url_for, current_app
-from app.forms import AddForm
+from app.forms import AddForm, SearchForm
 from app import db
 from app.models import Car
 import sqlalchemy as sa
@@ -41,28 +41,28 @@ def wipe():
     db.drop_all()
     return "Wiped data."
 
-@app.route('/view_all')
+@app.route('/view_cars')
 def view():
     all = db.session.query(Car).all()
     return render_template('view_cars.html', cars=all)
 
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/add_car', methods=['GET', 'POST'])
 def addCar():
     form = AddForm()
     if form.validate_on_submit():
-        carModel= form.carModel.data
-        modelYear = form.modelYear.data
+        name = form.name.data
+        year = form.year.data
         origin = form.origin.data
         mpg = form.mpg.data
             
-        c = Car(modelYear=modelYear, carModel=carModel, origin=origin, mpg=mpg)
+        c = Car(name=name, year=year, origin=origin, mpg=mpg)
             
         db.session.add(c)
         db.session.commit()
-            
+           
+        form.name.data='' 
         form.year.data=''
-        form.model.data=''
         form.origin.data=''
         form.mpg.data=''
             
@@ -70,3 +70,13 @@ def addCar():
     return render_template('add.html', form=form)
             
     
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        record = db.session.query(Car).filter_by(name=form.name.data).all()
+        if record:
+            return render_template('view_cars.html', cars=record)
+        else:
+            return render_template('not_found.html')
+    return render_template('search.html', form=form)
