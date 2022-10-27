@@ -81,10 +81,10 @@ def search():
             return render_template('not_found.html')
     return render_template('search.html', form=form)
 
-@app.route('/sort_model', methods=['GET', 'POST'])
+@app.route('/sort_cars', methods=['GET', 'POST'])
 def sort_model():
     
-        
-    return render_template('sort.html', form=form)
+    all = db.session.query(Car).all()
+    return render_template('sort.html', cars=all)
 
     
