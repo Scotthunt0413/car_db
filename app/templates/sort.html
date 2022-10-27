@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Sort Vehicle</h2>
+    <table>
+        <tr>
+            <th>Model</th> 
+            <th>Year</th>
+            <th>Origin</th>
+            <th>MPG</th>
+        </tr>
+        {% set sort_on = request.args.sort_on|default('name') %}
+        {% for car in cars|sort(attribute=sort_on) %}
+        <tr>
+            <td>{{car.name}}</td>
+            <td>{{car.year}}</td>
+            <td>{{car.origin}}</td>
+            <td>{{car.mpg}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
