@@ -44,3 +44,7 @@ def wipe():
 def view():
     all = db.session.query(Car).all()
     return render_template('view_cars.html', cars=all)
+
+@app.route('/add')
+def addCar():
+    
